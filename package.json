@@ -1,0 +1,25 @@
+{
+  "name": "object-breacher",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "author": "a-maged",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rm -rf lib/* && tsc",
+    "prebench": "npm run build",
+    "bench": "node bench.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "benchmark": "^2.1.4",
+    "colors": "^1.4.0",
+    "dot-prop": "^6.0.1",
+    "nested-property": "^4.0.0",
+    "object-path": "^0.11.5",
+    "@hapi/hoek": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
