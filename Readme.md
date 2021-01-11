@@ -2,6 +2,19 @@
 
 The Fastest library to get and set nested values in objects using a path
 
+# Benchmarks
+
+###### Benchmarked againest:
+
+- @hapi/hoek
+- dot-prop
+- object-path
+- nested-property
+
+![Benchmarks](https://github.com/A-Maged/object-breacher/blob/main/screenshot.png?raw=true)
+
+Checkout [the script](https://github.com/A-Maged/object-breacher/blob/main/bench.js) used to do this benchmark test
+
 ## Install:
 
 ##### NPM:
