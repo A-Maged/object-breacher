@@ -2,6 +2,7 @@
   "name": "object-breacher",
   "version": "1.0.0",
   "main": "lib/index.js",
+  "homepage": "https://github.com/A-Maged/object-breacher#readme",
   "author": "a-maged",
   "license": "MIT",
   "scripts": {
@@ -13,6 +14,10 @@
   "files": [
     "lib"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A-Maged/object-breacher"
+  },
   "devDependencies": {
     "benchmark": "^2.1.4",
     "colors": "^1.4.0",
