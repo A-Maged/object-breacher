@@ -1,6 +1,6 @@
 # Object Breacher
 
-The Fastest library to get and set nested values in objects using path
+The Fastest library to get and set nested values in objects using a path
 
 ## Install:
 
