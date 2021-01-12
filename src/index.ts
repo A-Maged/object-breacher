@@ -11,20 +11,20 @@ type TSetOptions = {
 
 export function get(
   obj: { [key: string]: any },
-  path: string | Array<string>,
+  path: string,
   options: TGetOptions = {}
 ) {
-  let keys = formatKeys(path, options.pathSeparator);
   let newObj = obj;
-  let keyIndex = 0;
+  let pathCharIndex = 0;
 
-  while (keyIndex < keys.length) {
-    let key = keys[keyIndex];
+  while (pathCharIndex < path.length) {
+    let { key, charPosition } = getNextKey(path, pathCharIndex, PATH_SEPERATOR);
     let value = newObj[key];
+
+    pathCharIndex = charPosition;
 
     if (isObject(value)) {
       newObj = value;
-      keyIndex++;
       continue;
     }
 
@@ -89,6 +89,19 @@ export function set(
   }
 
   return obj;
+}
+
+function getNextKey(path: string, charPosition: number, pathSeparator: string) {
+  let key = "";
+
+  while (path[charPosition] !== pathSeparator && charPosition < path.length) {
+    key += path[charPosition];
+    charPosition++;
+  }
+
+  charPosition++;
+
+  return { key, charPosition };
 }
 
 function formatKeys(
