@@ -11,25 +11,44 @@ type TSetOptions = {
 
 export function get(
   obj: { [key: string]: any },
-  path: string,
+  path: string | Array<string>,
   options: TGetOptions = {}
 ) {
   let newObj = obj;
   let pathCharIndex = 0;
 
-  while (pathCharIndex < path.length) {
-    let { key, charPosition } = getNextKey(path, pathCharIndex, PATH_SEPERATOR);
-    let value = newObj[key];
+  if (Array.isArray(path)) {
+    let keyIndex = 0;
 
-    pathCharIndex = charPosition;
+    while (keyIndex < path.length) {
+      let key = path[keyIndex];
+      let value = newObj[key];
 
-    if (isObject(value)) {
-      newObj = value;
-      continue;
+      if (isObject(value)) {
+        newObj = value;
+        keyIndex++;
+        continue;
+      }
+
+      /* if it's not an object, it means we can't go deeper, so we return immediately */
+      return value;
     }
+  } else {
+    while (pathCharIndex < path.length) {
+      let { key, charPosition } = getNextKey(path, pathCharIndex, PATH_SEPERATOR);
+      let value = newObj[key];
 
-    /* if it's not an object, it means we can't go deeper, so we return immediately */
-    return value;
+      /* jump to the first char in the next key */
+      pathCharIndex = charPosition;
+
+      if (isObject(value)) {
+        newObj = value;
+        continue;
+      }
+
+      /* if it's not an object, it means we can't go deeper, so we return immediately */
+      return value;
+    }
   }
 
   return newObj !== undefined ? newObj : options.defaultValue;
@@ -104,16 +123,11 @@ function getNextKey(path: string, charPosition: number, pathSeparator: string) {
   return { key, charPosition };
 }
 
-function formatKeys(
-  path: string | Array<string>,
-  pathSeparator: string | undefined
-) {
+function formatKeys(path: string | Array<string>, pathSeparator: string | undefined) {
   if (typeof path !== "string" && !Array.isArray(path))
     throw Error("Path must be of type String or Array");
 
-  return Array.isArray(path)
-    ? path
-    : path.split(pathSeparator || PATH_SEPERATOR);
+  return Array.isArray(path) ? path : path.split(pathSeparator || PATH_SEPERATOR);
 }
 
 function isObject(value: any) {
