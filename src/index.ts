@@ -14,44 +14,11 @@ export function get(
   path: string | Array<string>,
   options: TGetOptions = {}
 ) {
-  let newObj = obj;
-  let pathCharIndex = 0;
+  let result = Array.isArray(path)
+    ? getUsingArrayPath(obj, path)
+    : getUsingStrPath(obj, path);
 
-  if (Array.isArray(path)) {
-    let keyIndex = 0;
-
-    while (keyIndex < path.length) {
-      let key = path[keyIndex];
-      let value = newObj[key];
-
-      if (isObject(value)) {
-        newObj = value;
-        keyIndex++;
-        continue;
-      }
-
-      /* if it's not an object, it means we can't go deeper, so we return immediately */
-      return value;
-    }
-  } else {
-    while (pathCharIndex < path.length) {
-      let { key, charPosition } = getNextKey(path, pathCharIndex, PATH_SEPERATOR);
-      let value = newObj[key];
-
-      /* jump to the first char in the next key */
-      pathCharIndex = charPosition;
-
-      if (isObject(value)) {
-        newObj = value;
-        continue;
-      }
-
-      /* if it's not an object, it means we can't go deeper, so we return immediately */
-      return value;
-    }
-  }
-
-  return newObj !== undefined ? newObj : options.defaultValue;
+  return result !== undefined ? result : options.defaultValue;
 }
 
 export function set(
@@ -110,7 +77,51 @@ export function set(
   return obj;
 }
 
-function getNextKey(path: string, charPosition: number, pathSeparator: string) {
+function getUsingArrayPath(obj: any, path: Array<string>) {
+  let keyIndex = 0;
+  let mostNestedObj = obj;
+
+  while (keyIndex < path.length) {
+    let key = path[keyIndex];
+    let value = mostNestedObj[key];
+
+    if (isObject(value)) {
+      mostNestedObj = value;
+      keyIndex++;
+      continue;
+    }
+
+    /* if it's not an object, it means we can't go deeper, so we return immediately */
+    return value;
+  }
+
+  return mostNestedObj;
+}
+
+function getUsingStrPath(obj: any, path: string) {
+  let pathCharIndex = 0;
+  let mostNestedObj = obj;
+
+  while (pathCharIndex < path.length) {
+    let { key, charPosition } = getNextKeyInStrPath(path, pathCharIndex, PATH_SEPERATOR);
+    let value = mostNestedObj[key];
+
+    /* jump to the first char in the next key */
+    pathCharIndex = charPosition;
+
+    if (isObject(value)) {
+      mostNestedObj = value;
+      continue;
+    }
+
+    /* if it's not an object, it means we can't go deeper, so we return immediately */
+    return value;
+  }
+
+  return mostNestedObj;
+}
+
+function getNextKeyInStrPath(path: string, charPosition: number, pathSeparator: string) {
   let key = "";
 
   while (path[charPosition] !== pathSeparator && charPosition < path.length) {
