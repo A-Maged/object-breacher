@@ -83,16 +83,14 @@ function getUsingArrayPath(obj: any, path: Array<string>) {
 
   while (keyIndex < path.length) {
     let key = path[keyIndex];
-    let value = mostNestedObj[key];
 
-    if (isObject(value)) {
-      mostNestedObj = value;
-      keyIndex++;
-      continue;
+    try {
+      mostNestedObj = mostNestedObj[key];
+    } catch {
+      return undefined;
     }
 
-    /* if it's not an object, it means we can't go deeper, so we return immediately */
-    return value;
+    keyIndex++;
   }
 
   return mostNestedObj;
@@ -104,18 +102,14 @@ function getUsingStrPath(obj: any, path: string) {
 
   while (pathCharIndex < path.length) {
     let { key, charPosition } = getNextKeyInStrPath(path, pathCharIndex, PATH_SEPERATOR);
-    let value = mostNestedObj[key];
 
+    try {
+      mostNestedObj = mostNestedObj[key];
+    } catch {
+      return undefined;
+    }
     /* jump to the first char in the next key */
     pathCharIndex = charPosition;
-
-    if (isObject(value)) {
-      mostNestedObj = value;
-      continue;
-    }
-
-    /* if it's not an object, it means we can't go deeper, so we return immediately */
-    return value;
   }
 
   return mostNestedObj;
