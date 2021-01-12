@@ -5,11 +5,15 @@ const dotProp = require("dot-prop");
 const objectPath = require("object-path");
 const nestedProperty = require("nested-property");
 const hoek = require("@hapi/hoek");
+const _ = require("lodash");
 
 const newObj = () => ({
   a: {
     b: ["c", "d"],
     e: "f",
+    g: {
+      k: "l",
+    },
     "dot.dot": "don't trip now",
   },
 });
@@ -17,6 +21,10 @@ const newObj = () => ({
 var suite1 = new Benchmark.Suite("get");
 
 suite1
+  .add("lodash#get", function () {
+    let obj = newObj();
+    _.get(obj, "a.b");
+  })
   .add("object-breacher#get", function () {
     let obj = newObj();
     objectBreacher.get(obj, "a.b");
@@ -45,6 +53,10 @@ suite1
 let suite2 = new Benchmark.Suite("set");
 
 suite2
+  .add("lodash#set", function () {
+    let obj = newObj();
+    _.set(obj, "a.b.z", ";)");
+  })
   .add("nested-property#set", function () {
     let obj = newObj();
     nestedProperty.set(obj, "a.b.z", ";)");
