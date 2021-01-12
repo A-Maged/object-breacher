@@ -18,22 +18,15 @@ export function get(
 }
 
 function getUsingArrayPath(obj: any, path: Array<string>) {
-  let keyIndex = 0;
-  let mostNestedObj = obj;
-
-  while (keyIndex < path.length) {
-    let key = path[keyIndex];
-
-    try {
-      mostNestedObj = mostNestedObj[key];
-    } catch {
-      return undefined;
+  for (let i = 0; i < path.length; i++) {
+    if (obj) {
+      obj = obj[path[i]];
+    } else {
+      return;
     }
-
-    keyIndex++;
   }
 
-  return mostNestedObj;
+  return obj;
 }
 
 function getUsingStrPath(obj: any, path: string, options: TGetOptions) {
