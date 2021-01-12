@@ -12,7 +12,7 @@ export function get(
 ) {
   let result = Array.isArray(path)
     ? getUsingArrayPath(obj, path)
-    : getUsingStrPath(obj, path);
+    : getUsingStrPath(obj, path, options);
 
   return result !== undefined ? result : options.defaultValue;
 }
@@ -36,12 +36,16 @@ function getUsingArrayPath(obj: any, path: Array<string>) {
   return mostNestedObj;
 }
 
-function getUsingStrPath(obj: any, path: string) {
+function getUsingStrPath(obj: any, path: string, options: TGetOptions) {
   let pathCharIndex = 0;
   let mostNestedObj = obj;
 
   while (pathCharIndex < path.length) {
-    let { key, charPosition } = getNextKeyInStrPath(path, pathCharIndex, PATH_SEPERATOR);
+    let { key, charPosition } = getNextKeyInStrPath(
+      path,
+      pathCharIndex,
+      options.pathSeparator || PATH_SEPERATOR
+    );
 
     try {
       mostNestedObj = mostNestedObj[key];
