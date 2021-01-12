@@ -5,13 +5,13 @@ type TSetOptions = {
 };
 
 export function set(
-  obj: { [key: string]: any },
+  obj: { [key: string]: any } | string,
   path: string | Array<string>,
   userValue: string | object = {},
   options: TSetOptions = {}
 ) {
   /* Support having no obj */
-  if (typeof obj === "string") {
+  if (typeof obj === "string" || Array.isArray(obj)) {
     userValue = path;
     path = obj;
     obj = {};

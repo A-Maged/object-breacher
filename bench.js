@@ -28,67 +28,106 @@ const newObj = () => ({
 var suite1 = new Benchmark.Suite("get");
 
 suite1
-  .add("lodash#get", function () {
+  .add("lodash#get#string", function () {
     let obj = newObj();
     _.get(obj, "a.b");
-    _.get(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
-  .add("object-breacher#get", function () {
+  .add("object-breacher#get#string", function () {
     let obj = newObj();
     objectBreacher.get(obj, "a.b");
-    objectBreacher.get(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
-  .add("hoek#get", function () {
+  .add("hoek#get#string", function () {
     let obj = newObj();
     hoek.reach(obj, "a.b");
-    hoek.reach(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
-  .add("nested-property#get", function () {
+  .add("nested-property#get#string", function () {
     let obj = newObj();
     nestedProperty.get(obj, "a.b");
-    nestedProperty.get(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
-  .add("dot-prop#get", function () {
+  .add("dot-prop#get#string", function () {
     let obj = newObj();
     dotProp.get(obj, "a.b");
-    dotProp.get(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
-  .add("object-path#get", function () {
+  .add("object-path#get#string", function () {
     let obj = newObj();
     objectPath.get(obj, "a.b");
-    objectPath.get(obj, ["a", "g", "h", "get", "the", "prize"]);
   })
   .on("start", onStart)
   .on("cycle", onCycle)
   .on("complete", onComplete)
   .run({ async: true });
 
-let suite2 = new Benchmark.Suite("set");
+var suite2 = new Benchmark.Suite("get");
 
 suite2
-  .add("lodash#set", function () {
+  .add("lodash#get#array", function () {
+    let obj = newObj();
+    _.get(obj, ["a", "g", "h", "get", "the", "prize"]);
+  })
+  .add("object-breacher#get#array", function () {
+    let obj = newObj();
+    objectBreacher.get(obj, ["a", "g", "h", "get", "the", "prize"]);
+  })
+  .add("hoek#get#array", function () {
+    let obj = newObj();
+    hoek.reach(obj, ["a", "g", "h", "get", "the", "prize"]);
+  })
+  .add("nested-property#get#array", function () {
+    let obj = newObj();
+    nestedProperty.get(obj, ["a", "g", "h", "get", "the", "prize"]);
+  })
+  .add("object-path#get#array", function () {
+    let obj = newObj();
+    objectPath.get(obj, ["a", "g", "h", "get", "the", "prize"]);
+  })
+  .on("cycle", onCycle)
+  .on("complete", onComplete)
+  .run({ async: true });
+
+let suite3 = new Benchmark.Suite("set");
+
+suite3
+  .add("lodash#set#string", function () {
     let obj = newObj();
     _.set(obj, "a.b.z", ";)");
-    _.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
   })
-  .add("nested-property#set", function () {
+  .add("nested-property#set#string", function () {
     let obj = newObj();
     nestedProperty.set(obj, "a.b.z", ";)");
-    nestedProperty.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
   })
-  .add("dot-prop#set", function () {
+  .add("dot-prop#set#string", function () {
     let obj = newObj();
     dotProp.set(obj, "a.b.z", ";)");
-    dotProp.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
   })
-  .add("object-breacher#set", function () {
+  .add("object-breacher#set#string", function () {
     let obj = newObj();
     objectBreacher.set(obj, "a.b.z", ";)");
-    objectBreacher.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
   })
-  .add("object-path#set", function () {
+  .add("object-path#set#string", function () {
     let obj = newObj();
     objectPath.set(obj, "a.b.z", ";)");
+  })
+  .on("cycle", onCycle)
+  .on("complete", onComplete)
+  .run({ async: true });
+
+let suite4 = new Benchmark.Suite("set");
+
+suite4
+  .add("lodash#set#array", function () {
+    let obj = newObj();
+    _.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
+  })
+  .add("nested-property#set#array", function () {
+    let obj = newObj();
+    nestedProperty.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
+  })
+  .add("object-breacher#set#array", function () {
+    let obj = newObj();
+    objectBreacher.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
+  })
+  .add("object-path#set#array", function () {
+    let obj = newObj();
     objectPath.set(obj, ["a", "g", "h", "get", "the", "prize"], "new prize");
   })
   .on("cycle", onCycle)

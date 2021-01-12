@@ -11,7 +11,7 @@ The Fastest library to get and set nested values in objects using a path
 - object-path
 - nested-property
 
-![Benchmarks](https://github.com/A-Maged/object-breacher/blob/main/screenshot.png?raw=true)
+<img width="550" src="https://github.com/A-Maged/object-breacher/blob/main/screenshot.png?raw=true" alt="Benchmarks">
 
 Checkout [the script](https://github.com/A-Maged/object-breacher/blob/main/bench.js) used to do this benchmark test
 
