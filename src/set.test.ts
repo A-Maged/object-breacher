@@ -41,12 +41,14 @@ describe("Set", () => {
   it("should create object from string path, if it's not supplied as an argument", () => {
     let obj = set("a.b.c", "d");
 
+    // @ts-ignore
     expect(obj?.a?.b?.c).toBe("d");
   });
 
   it("should create object from array path, if it's not supplied as an argument", () => {
     let obj = set(["a", "b", "c"], "d");
 
+    // @ts-ignore
     expect(obj?.a?.b?.c).toBe("d");
   });
 
