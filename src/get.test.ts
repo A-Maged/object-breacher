@@ -50,6 +50,7 @@ describe("Get", () => {
   it("should return undefind if path doesn't exist", () => {
     expect(get(obj, "foo.blah.bar")).toBeUndefined();
     expect(get(obj, ["foo", "blah", ".bar"])).toBeUndefined();
+    expect(get(obj, ["x", "blah", ".bar"])).toBeUndefined();
   });
 
   it("should fetch null", () => {
