@@ -26,6 +26,9 @@ describe("Get", () => {
   it("should access nested array using an index in path", () => {
     expect(get(obj, "c.0")).toBe("d");
     expect(get(obj, "c.1")).toBe("e");
+
+    expect(get(obj, ["c", 0])).toBe("d");
+    expect(get(obj, ["c", 1])).toBe("e");
   });
 
   it("should use the provided path seperator", () => {
@@ -46,9 +49,11 @@ describe("Get", () => {
 
   it("should return undefind if path doesn't exist", () => {
     expect(get(obj, "foo.blah.bar")).toBeUndefined();
+    expect(get(obj, ["foo", "blah", ".bar"])).toBeUndefined();
   });
 
   it("should fetch null", () => {
     expect(get(obj, "x")).toBeNull();
+    expect(get(obj, ["x"])).toBeNull();
   });
 });

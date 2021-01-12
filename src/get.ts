@@ -7,7 +7,7 @@ type TGetOptions = {
 
 export function get(
   obj: { [key: string]: any },
-  path: string | Array<string>,
+  path: string | Array<any>,
   options: TGetOptions = {}
 ) {
   let result = Array.isArray(path)
