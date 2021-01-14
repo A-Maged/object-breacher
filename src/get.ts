@@ -7,7 +7,7 @@ type TGetOptions = {
 
 export function get(
   obj: { [key: string]: any },
-  path: string | Array<string>,
+  path: string | Array<any>,
   options: TGetOptions = {}
 ) {
   let result = Array.isArray(path)
@@ -17,23 +17,19 @@ export function get(
   return result !== undefined ? result : options.defaultValue;
 }
 
-function getUsingArrayPath(obj: any, path: Array<string>) {
-  let keyIndex = 0;
-  let mostNestedObj = obj;
+export function getUsingArrayPath(obj: any, path: string | Array<string | number>) {
+  let i = -1,
+    length = path.length;
 
-  while (keyIndex < path.length) {
-    let key = path[keyIndex];
-
-    try {
-      mostNestedObj = mostNestedObj[key];
-    } catch {
-      return undefined;
-    }
-
-    keyIndex++;
+  while (++i < length && obj) {
+    obj = obj[path[i]];
   }
 
-  return mostNestedObj;
+  if (i === length) {
+    if (obj || obj === null) {
+      return obj;
+    }
+  }
 }
 
 function getUsingStrPath(obj: any, path: string, options: TGetOptions) {
