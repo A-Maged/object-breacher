@@ -17,16 +17,19 @@ export function get(
   return result !== undefined ? result : options.defaultValue;
 }
 
-function getUsingArrayPath(obj: any, path: Array<string>) {
-  for (let i = 0; i < path.length; i++) {
-    if (obj) {
-      obj = obj[path[i]];
-    } else {
-      return;
-    }
+export function getUsingArrayPath(obj: any, path: string | Array<string | number>) {
+  let i = -1,
+    length = path.length;
+
+  while (++i < length && obj) {
+    obj = obj[path[i]];
   }
 
-  return obj;
+  if (i === length) {
+    if (obj || obj === null) {
+      return obj;
+    }
+  }
 }
 
 function getUsingStrPath(obj: any, path: string, options: TGetOptions) {

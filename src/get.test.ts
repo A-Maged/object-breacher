@@ -5,6 +5,7 @@ describe("Get", () => {
     a: {
       b: "ab",
     },
+    // @ts-ignore
     x: null,
     c: ["d", "e"],
     "dot.dot": "don't trip now",
