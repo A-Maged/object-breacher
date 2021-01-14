@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "rm -rf lib/* && tsc",
+    "build": "rm -rf lib/* && tsc && webpack",
     "prebench": "npm run build",
     "bench": "node bench.js",
     "test": "jest"

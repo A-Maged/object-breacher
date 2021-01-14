@@ -3,6 +3,7 @@
   "exclude": ["src/*.test.ts"],
   "compilerOptions": {
     "declaration": true,
+    "emitDeclarationOnly": true,
     "outDir": "lib",
     "target": "ESNext",
     "module": "CommonJS",
