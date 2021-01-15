@@ -20,12 +20,17 @@ export function get(
 
 function getUsingArrayPath(obj: any, path: any[]) {
   let i = 0;
-  while (obj && obj !== null && i < path.length) {
-    obj = obj[path[i]];
+  while (i < path.length) {
+    try {
+      obj = obj[path[i]];
+    } catch {
+      return;
+    }
+
     i++;
   }
 
-  return i === path.length ? obj : undefined;
+  return obj;
 }
 
 function getUsingStrPath(obj: any, path: string, options: TGetOptions) {
