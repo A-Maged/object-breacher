@@ -35,5 +35,16 @@
     "typescript": "^4.1.3",
     "webpack": "^5.14.0",
     "webpack-cli": "^4.3.1"
-  }
+  },
+  "keywords": [
+    "get",
+    "set",
+    "nested",
+    "object",
+    "property",
+    "dot",
+    "notation",
+    "deep",
+    "path"
+  ]
 }
