@@ -7,29 +7,24 @@ type TGetOptions = {
 
 export function get(
   obj: { [key: string]: any },
-  path: string | Array<any>,
+  path: string | any[],
   options: TGetOptions = {}
 ) {
-  let result = Array.isArray(path)
-    ? getUsingArrayPath(obj, path)
-    : getUsingStrPath(obj, path, options);
+  // @ts-ignore
+  let result = path.charCodeAt
+    ? getUsingStrPath(obj, path as string, options)
+    : getUsingArrayPath(obj, path as any[]);
 
   return result !== undefined ? result : options.defaultValue;
 }
 
-export function getUsingArrayPath(obj: any, path: string | Array<string | number>) {
-  let i = -1,
-    length = path.length;
-
-  while (++i < length && obj) {
-    obj = obj[path[i]];
+function getUsingArrayPath(obj: any, path: any[]) {
+  for (var i = 0; obj && obj !== null && i < path.length; i++) {
+    let key = path[i];
+    obj = obj[key];
   }
 
-  if (i === length) {
-    if (obj || obj === null) {
-      return obj;
-    }
-  }
+  return i === path.length ? obj : undefined;
 }
 
 function getUsingStrPath(obj: any, path: string, options: TGetOptions) {
