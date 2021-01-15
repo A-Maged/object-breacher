@@ -19,9 +19,10 @@ export function get(
 }
 
 function getUsingArrayPath(obj: any, path: any[]) {
-  for (var i = 0; obj && obj !== null && i < path.length; i++) {
-    let key = path[i];
-    obj = obj[key];
+  let i = 0;
+  while (obj && obj !== null && i < path.length) {
+    obj = obj[path[i]];
+    i++;
   }
 
   return i === path.length ? obj : undefined;
