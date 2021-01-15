@@ -6,6 +6,7 @@ The Fastest library to get and set nested values in objects using a path
 
 ###### Benchmarked againest:
 
+- lodash
 - @hapi/hoek
 - dot-prop
 - object-path
