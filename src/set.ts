@@ -28,7 +28,7 @@ export function set(
   /* get the deepest object possible */
   while (keyIndex < keys.length) {
     const key = keys[keyIndex];
-    const value = mostNestedObj[key];
+    const value = isPrototypePolluted(key) ? {} : mostNestedObj[key];
 
     if (isObject(value)) {
       mostNestedObj = value;
@@ -58,4 +58,8 @@ export function set(
   }
 
   return obj;
+}
+
+function isPrototypePolluted(key: any) {
+  return /__proto__|constructor|prototype/.test(key);
 }
