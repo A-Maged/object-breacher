@@ -1,28 +1,28 @@
-import { isObject, formatKeys } from "./utils";
+import { isObject, PATH_SEPERATOR } from './utils';
 
 type TSetOptions = {
   pathSeparator?: string;
 };
 
+type TObjOrPath = { [key: string]: any } | string | Array<string>;
+
 export function set(
-  obj: { [key: string]: any } | string,
-  path: string | Array<string>,
+  obj: TObjOrPath,
+  path: TObjOrPath,
   userValue: string | object = {},
   options: TSetOptions = {}
 ) {
   /* Support having no obj */
-  if (typeof obj === "string" || Array.isArray(obj)) {
+  if (arguments.length < 3) {
     userValue = path;
     path = obj;
     obj = {};
-  } else if (!isObject(obj)) {
-    throw Error(
-      "Must supply an Object or omit the first parameter and do this instead: set(path, newValue) "
-    );
   }
 
-  let keys = formatKeys(path, options.pathSeparator);
-  let mostNestedObj = obj;
+  let keys = Array.isArray(path)
+    ? path
+    : path.split(options.pathSeparator || PATH_SEPERATOR);
+  let mostNestedObj: any = obj;
   let keyIndex = 0;
 
   /* get the deepest object possible */
