@@ -65,4 +65,12 @@ describe("Set", () => {
 
     expect(obj?.a?.b?.c).toBe("d");
   });
+
+  it("should not pollute object prototype", () => {
+    const obj = {};
+
+    set(obj, "__proto__.polluted", "yes");
+
+    expect(Object.keys(Object.prototype).includes("polluted")).toBe(false);
+  })
 });
