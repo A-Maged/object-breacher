@@ -1,6 +1,6 @@
 {
   "name": "object-breacher",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "license": "MIT",
   "main": "dist/index.js",
   "homepage": "https://github.com/A-Maged/object-breacher#readme",
