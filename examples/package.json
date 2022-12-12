@@ -1,0 +1,24 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bench.js",
+  "type": "module",
+  "scripts": {
+    "bench": "node bench.js"
+  },
+  "keywords": [],
+  "author": "a-maged",
+  "license": "ISC",
+  "devDependencies": {
+    "@hapi/hoek": "*",
+    "benchmark": "^2.1.4",
+    "dot-prop": "*",
+    "lodash": "*",
+    "nested-property": "*",
+    "object-path": "*"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}

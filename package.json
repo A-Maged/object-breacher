@@ -1,0 +1,70 @@
+{
+  "name": "object-breacher",
+  "version": "1.4.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "homepage": "https://github.com/A-Maged/object-breacher#readme",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "a-maged",
+  "module": "dist/object-breacher.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/object-breacher.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/object-breacher.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A-Maged/object-breacher"
+  },
+  "keywords": [
+    "get",
+    "set",
+    "nested",
+    "object",
+    "property",
+    "dot",
+    "notation",
+    "deep",
+    "path"
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.2",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.1",
+    "typescript": "^3.9.10"
+  }
+}
