@@ -14,7 +14,7 @@ Almost the fastest library to get and set nested values in objects using a path.
 
 <img width="550" src="https://github.com/A-Maged/object-breacher/blob/main/benchmarks-Screenshot-2022-12-12.png?raw=true" alt="Benchmarks">
 
-Checkout [the script](https://github.com/A-Maged/object-breacher/blob/main/bench.js) used to do this benchmark test
+Checkout [the script](https://github.com/A-Maged/object-breacher/blob/main/examples/bench.js) used to do this benchmark test
 
 ## Install:
 

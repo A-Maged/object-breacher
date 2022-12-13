@@ -1,10 +1,11 @@
-// These lines make "require" available
-import { createRequire } from 'module';
 import * as dotProp from 'dot-prop';
 import Benchmark from 'benchmark';
 
+// These lines make "require" available
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const colors = require('colors');
+
+require('colors');
 const objectBreacher = require('../dist/object-breacher.cjs.production.min');
 const objectPath = require('object-path');
 const nestedProperty = require('nested-property');
