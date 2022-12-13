@@ -1,65 +1,65 @@
-import { isObject, PATH_SEPARATOR } from "./utils";
+import { isObject, PATH_SEPARATOR } from './utils';
 
 type TSetOptions = {
-    pathSeparator?: string;
+  pathSeparator?: string;
 };
 
 type TObjOrPath = { [key: string]: any } | string | Array<string>;
 
 export function set(
-    obj: TObjOrPath,
-    path: TObjOrPath,
-    userValue: string | object = {},
-    options: TSetOptions = {}
+  obj: TObjOrPath,
+  path: TObjOrPath,
+  userValue: string | object = {},
+  options: TSetOptions = {}
 ) {
-    /* Support having no obj */
-    if (arguments.length < 3) {
-        userValue = path;
-        path = obj;
-        obj = {};
+  /* Support having no obj */
+  if (arguments.length < 3) {
+    userValue = path;
+    path = obj;
+    obj = {};
+  }
+
+  let keys = Array.isArray(path)
+    ? path
+    : path.split(options.pathSeparator || PATH_SEPARATOR);
+  let mostNestedObj: any = obj;
+  let keyIndex = 0;
+
+  /* get the deepest object possible */
+  while (keyIndex < keys.length) {
+    const key = keys[keyIndex];
+    const value = isPrototypePolluted(key) ? {} : mostNestedObj[key];
+
+    if (isObject(value)) {
+      mostNestedObj = value;
+    } else {
+      break;
     }
 
-    let keys = Array.isArray(path)
-        ? path
-        : path.split(options.pathSeparator || PATH_SEPARATOR);
-    let mostNestedObj: any = obj;
-    let keyIndex = 0;
+    keyIndex++;
+  }
 
-    /* get the deepest object possible */
-    while (keyIndex < keys.length) {
-        const key = keys[keyIndex];
-        const value = isPrototypePolluted(key) ? {} : mostNestedObj[key];
+  /* set remaining keys */
+  while (keyIndex < keys.length) {
+    const key = keys[keyIndex];
+    const isLastKey = keyIndex === keys.length - 1;
 
-        if (isObject(value)) {
-            mostNestedObj = value;
-        } else {
-            break;
-        }
+    if (isLastKey) {
+      mostNestedObj[key] = userValue;
+    } else {
+      /* create an empty object at the current key */
+      mostNestedObj[key] = {};
 
-        keyIndex++;
+      /* point our most nested object to the new empty object */
+      mostNestedObj = mostNestedObj[key];
     }
 
-    /* set remaining keys */
-    while (keyIndex < keys.length) {
-        const key = keys[keyIndex];
-        const isLastKey = keyIndex === keys.length - 1;
+    keyIndex++;
+  }
 
-        if (isLastKey) {
-            mostNestedObj[key] = userValue;
-        } else {
-            /* create an empty object at the current key */
-            mostNestedObj[key] = {};
-
-            /* point our most nested object to the new empty object */
-            mostNestedObj = mostNestedObj[key];
-        }
-
-        keyIndex++;
-    }
-
-    return obj;
+  return obj;
 }
 
 function isPrototypePolluted(key: any) {
-    return /__proto__|constructor|prototype/.test(key);
+  return /__proto__|constructor|prototype/.test(key);
 }

@@ -5,7 +5,7 @@ import Benchmark from 'benchmark';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-const colors = require('colors');
+require('colors');
 const objectBreacher = require('../dist/object-breacher.cjs.production.min');
 const objectPath = require('object-path');
 const nestedProperty = require('nested-property');
